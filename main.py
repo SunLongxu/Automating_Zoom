@@ -8,7 +8,7 @@ from datetime import datetime
 def signIn(meeting_id,password):
 
     #Open's Zoom Application from the specified location
-    os.startfile("C:/Users/facadmin1/AppData/Roaming/Zoom/bin/Zoom.exe")
+    os.startfile("C:/Users/cslxsun/AppData/Roaming/Zoom/bin/Zoom.exe")
     time.sleep(3)
 
     #Click's join button
@@ -46,17 +46,25 @@ def signIn(meeting_id,password):
     joinmeeting=pyautogui.locateCenterOnScreen("joinmeeting.png")
     pyautogui.moveTo(joinmeeting)
     pyautogui.click()
-    time.sleep(1)
+    time.sleep(5)
+
+    #To join audio
+    joinaudio=pyautogui.locateCenterOnScreen("joinaudio.png")
+    pyautogui.moveTo(joinaudio)
+    pyautogui.click()
+    time.sleep(2)
 
 df = pd.read_excel('timings.xlsx',index=False)
 
 while True:
+
     #To get current time
     now = datetime.now().strftime("%H:%M")
     if now in str(df['Timings']):
         
         mylist=df["Timings"]
         mylist=[i.strftime("%H:%M") for i in mylist]
+        print(mylist[0])
         c= [i for i in range(len(mylist)) if mylist[i]==now]
         row = df.loc[c] 
         meeting_id = str(row.iloc[0,1])  
@@ -66,5 +74,4 @@ while True:
         time.sleep(2)
         print('signed in')
         break
-        
         
